@@ -13,10 +13,10 @@ float video(int w, int h, int durationMovie, int durationCredits, int fps, char*
     // Calculate the number of frames for each section
     int frames_movie = durationMovie * fps;
     int frames_credits = durationCredits * fps;
-
+    // IT'S ALL IN BYTES
     // Calculate the size of a single frame for both color and black-and-white sections
-    float frame_size_color = (float)(w * h * 24); // 24 bits per pixel for color
-    float frame_size_bw = (float)(w * h * 8);     // 8 bits per pixel for black & white
+    float frame_size_color = (float)(w * h * 3); // 24 bits per pixel for color
+    float frame_size_bw = (float)(w * h * 1);     // 8 bits per pixel for black & white
 
     // Calculate the total size in bits
     float size_color = frames_movie * frame_size_color;
@@ -27,11 +27,11 @@ float video(int w, int h, int durationMovie, int durationCredits, int fps, char*
     if (strcmp(unit, "bt") == 0) {
         return total_size_bits;
     } else if (strcmp(unit, "ko") == 0) {
-        return total_size_bits / 1000.0f; // Convert to kilobits
+        return total_size_bits / 1024.0f; // Convert to kilobits
     } else if (strcmp(unit, "mo") == 0) {
-        return total_size_bits / 1000000.0f; // Convert to megabits
+        return total_size_bits / (1024.0f * 1024.0f); // Convert to megabits
     } else if (strcmp(unit, "go") == 0) {
-        return total_size_bits / 1000000000.0f; // Convert to gigabits
+        return total_size_bits / (1024.0f * 1024.0f * 1024.0f); // Convert to gigabits
     } else {
         // If unit is unrecognized, return 0
         return 0.0f;
